@@ -11,6 +11,7 @@ table td {text-align: left;}
 </style>
 </head>
 <body>
+    <h1>bala</h1>
 <h2 align=center><%@ page import="hello.Message" %>
       <% Message C0 = new Message();
         String message = C0.sayHello();
