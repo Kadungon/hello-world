@@ -1,31 +1,27 @@
-// Powered by Infostretch 
-
-timestamps {
-
-node ('master') { 
-
-	stage ('convert - Checkout') {
- 	 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cf4e916c-805a-456f-b1ea-45772844139b', url: 'https://github.com/Kadungon/hello-world.git']]]) 
-	}
-	stage ('convert - Build') {
- 			// Maven build step
-	withMaven { 
- 			if(isUnix()) {
- 				sh "mvn clean package " 
-			} else { 
- 				bat "mvn clean package " 
-			} 
- 		} 
-	}
-	stage ('same - Build') {
- 			// Shell build step
-sh """ 
-sum=$((25 + 25))
-echo "The sum is = $sum" 
- """		// Shell build step
-sh """ 
- 
- """ 
-	}
-}
+node('jenkins-slave') {
+        stage('SCM Checkout') {
+            git 'https://github.com/Kadungon/hello-world.git'
+        }
+        
+        stage('Build a Maven project') {
+            def mvnHome = tool name: 'maven-3',type: 'maven'
+            def mvnCMD = "${mvnHome}/bin/mvn"
+            sh "${mvnCMD} -B clean install"
+        }
+        
+        container('docker') {
+        stage('Buid Docker Image') {
+            sh 'docker build -t kadungon/helloworld-app:1.0.0 .'
+        }
+        
+        stage('Push Docker image'){
+            withCredentials([usernamePassword(credentialsId: 'docker-login', passwordVariable: 'docHubPwd', usernameVariable: 'docHubUser')]) {
+                sh "docker login -u ${docHubUser} -p ${docHubPwd}" 
+            }  
+            
+            sh 'docker push kadungon/helloworld-app:1.0.0'
+        }
+        }
+            
+        
 }
