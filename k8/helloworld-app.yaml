@@ -5,8 +5,8 @@ metadata:
 spec:
  type: NodePort
  ports:
-  -port: 8080
-   targetPort: 8080
+  - port: 8080
+    targetPort: 8080
  selector:
    app: hello-world-app
    
@@ -14,21 +14,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hellow-world
+  name: hello-world
 spec:
  replicas: 1
  selector:
-   matchLabels: hello-world-app
+   matchLabels: 
+    app: hello-world-app
  template:
    metadata:
     labels:
      app: hello-world-app
    spec:
     containers:
-      -name: hello-world
-       image: kadugon
-       ports:
-        -containerPort: 8080
+      - name: hello-world
+        image: kadugon
+        ports:
+        - containerPort: 8080
      
     
 
