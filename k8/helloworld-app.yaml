@@ -10,7 +10,7 @@ spec:
  selector:
    app: hello-world-app
    
- ---
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
