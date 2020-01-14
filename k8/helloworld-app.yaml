@@ -27,7 +27,7 @@ spec:
    spec:
     containers:
       - name: hello-world
-        image: kadugon
+        image: kadungon/helloworld-app:1.0.0
         ports:
         - containerPort: 8080
      
