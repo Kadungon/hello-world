@@ -5,7 +5,7 @@
   <groupId>Demo</groupId>
   <artifactId>hello-world</artifactId>
   <packaging>war</packaging>
-  <version>${env.appversion}</version>
+  <version>${app.version}</version>
   <name>Hello Maven Webapp</name>
   <url>http://maven.apache.org</url>
   
