@@ -5,7 +5,8 @@ def mvnCMD;
 
 node('jenkins-slave') {
         stage('SCM Checkout') {
-            git 'https://github.com/Kadungon/hello-world.git'
+            //git 'https://github.com/Kadungon/hello-world.git'
+                checkout scm
         }
         
         stage('Maven Build') {
