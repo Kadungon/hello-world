@@ -9,7 +9,7 @@ node('jenkins-slave') {
                 checkout scm
         }
         
-        stage('Maven Build') {
+        /*stage('Maven Build') {
             
             mvnHome = tool name: 'maven-3',type: 'maven'
             mvnCMD = "${mvnHome}/bin/mvn"
@@ -38,13 +38,13 @@ node('jenkins-slave') {
             
             sh "docker push kadungon/helloworld-app:${appversion}"
         }
-        }
+        }*/
         
         container('kubectl'){
         stage('Deploy to K8'){
             withKubeConfig(credentialsId: 'kube-deploy', serverUrl: 'https://10.134.95.70:6443') {
                     
-                    sh '''sed -i "s/<VERSION>/${appversion}/g" k8/helloworld-app.yaml
+                    sh '''sed -i "s/<VERSION>/1.0.0.19/g" k8/helloworld-app.yaml
                           kubectl apply -f k8/helloworld-app.yaml'''
             }
         }
