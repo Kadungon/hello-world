@@ -43,7 +43,9 @@ node('jenkins-slave') {
         container('kubectl'){
         stage('Deploy to K8'){
             withKubeConfig(credentialsId: 'kube-deploy', serverUrl: 'https://10.134.95.70:6443') {
-                sh 'kubectl apply -f k8/helloworld-app.yaml'
+                    
+                    sh "sed -i "s/<VERSION>/${appversion}/g" k8/helloworld-app.yaml"
+                    sh 'kubectl apply -f k8/helloworld-app.yaml'
             }
         }
         
