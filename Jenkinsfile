@@ -9,7 +9,7 @@ node('jenkins-slave') {
                 checkout scm
         }
         
-        /*stage('Maven Build') {
+        stage('Maven Build') {
             
             mvnHome = tool name: 'maven-3',type: 'maven'
             mvnCMD = "${mvnHome}/bin/mvn"
@@ -38,7 +38,7 @@ node('jenkins-slave') {
             
             sh "docker push kadungon/helloworld-app:${appversion}"
         }
-        }*/
+        }
         
         container('kubectl'){
         stage('Deploy to K8'){
