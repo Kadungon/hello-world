@@ -24,6 +24,16 @@ node('jenkins-slave') {
             jacoco classPattern: 'target/classes', execPattern: 'target/**.exec', sourcePattern: 'src/main/java'
         }
         
+        stage('Sonar Scan') {
+            
+           def sonarHome = tool 'Sonar-4'
+           def sonarCMD = "${sonarHome}/bin/sonar-scanner"
+            
+           withSonarQubeEnv('sonarqube') {
+                sh "${sonarCMD}" 
+           }
+        }
+        
         container('docker') {
         stage('Buid Docker Image') {
             unstash 'builtSources'
