@@ -33,7 +33,6 @@ node('jenkins-slave') {
                 sh "${sonarCMD}" 
            }
         }
-        }
         
         container('docker') {
         stage('Buid Docker Image') {
