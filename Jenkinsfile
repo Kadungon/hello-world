@@ -32,9 +32,6 @@ node('jenkins-slave') {
            withSonarQubeEnv('sonarqube') {
                 sh "${sonarCMD}" 
            }
-                
-           timeout(time: 10, unit: 'MINUTES') {
-           waitForQualityGate abortPipeline: true
         }
         }
         
