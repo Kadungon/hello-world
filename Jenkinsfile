@@ -13,13 +13,13 @@ node('jenkins-slave') {
             
             mvnHome = tool name: 'maven-3',type: 'maven'
             mvnCMD = "${mvnHome}/bin/mvn"
-            sh "${mvnCMD} -B clean package -Dapp.version=${appversion}"
-            stash includes: 'target/**', name: 'builtSources'
+            sh "${mvnCMD} -B clean install -Dapp.version=${appversion}"
+            //stash includes: 'target/**', name: 'builtSources'
         }
         
-        stage('Maven Test') {
+        stage('Unit Test') {
             
-            sh "${mvnCMD} -B clean test -Dapp.version=${appversion}"
+            //sh "${mvnCMD} -B clean test -Dapp.version=${appversion}"
             junit 'target/surefire-reports/TEST-*.xml'
             jacoco classPattern: 'target/classes', execPattern: 'target/**.exec', sourcePattern: 'src/main/java'
         }
@@ -28,7 +28,7 @@ node('jenkins-slave') {
             
            def sonarHome = tool 'Sonar-4'
            def sonarCMD = "${sonarHome}/bin/sonar-scanner"
-           unstash 'builtSources'
+           //unstash 'builtSources'
            withSonarQubeEnv('sonarqube') {
                 sh "${sonarCMD}" 
            }
