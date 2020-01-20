@@ -14,7 +14,7 @@ node('jenkins-slave') {
             mvnHome = tool name: 'maven-3',type: 'maven'
             mvnCMD = "${mvnHome}/bin/mvn"
             sh "${mvnCMD} -B clean package -Dapp.version=${appversion}"
-            stash includes: 'target/*.war', name: 'builtSources'
+            stash includes: 'target/**', name: 'builtSources'
         }
         
         stage('Maven Test') {
