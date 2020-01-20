@@ -28,7 +28,7 @@ node('jenkins-slave') {
             
            def sonarHome = tool 'Sonar-4'
            def sonarCMD = "${sonarHome}/bin/sonar-scanner"
-            
+           unstash 'builtSources'
            withSonarQubeEnv('sonarqube') {
                 sh "${sonarCMD}" 
            }
@@ -36,7 +36,6 @@ node('jenkins-slave') {
         
         container('docker') {
         stage('Buid Docker Image') {
-            unstash 'builtSources'
             sh "docker build --build-arg APPVERSION=${appversion} -t kadungon/helloworld-app:${appversion} ."
         }
         
