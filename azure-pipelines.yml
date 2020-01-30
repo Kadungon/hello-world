@@ -25,4 +25,4 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     ArtifactName: target
-    pathtoPublish: '/target'
+    pathtoPublish: 'target/*'
