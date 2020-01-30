@@ -17,6 +17,7 @@ jobs:
   
   - job: B
     displayName: JOB B
+    dependsOn: A
     condition: failed()
     steps:
       - script: echo "job a failed"
