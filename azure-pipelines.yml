@@ -6,16 +6,25 @@
 trigger:
 - master
 
-
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
+jobs:
+  - job: A
+    displayName: JOB A
+    steps:
+      - script: exit 1
+  
+  - job: B
+    displayName: JOB B
+    condition: failed()
+    steps:
+      - script: echo "job a failed"
+
+  - job: C
+    displayName: JOB C
+    condition: succeeseded('B')
+    steps:
+      - script: echo "job b is passed"
 
 
