@@ -23,7 +23,7 @@ jobs:
 
   - job: C
     displayName: JOB C
-    condition: succeeseded('B')
+    condition: succeeded('B')
     steps:
       - script: echo "job b is passed"
 
