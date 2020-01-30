@@ -9,23 +9,20 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-jobs:
-  - job: A
-    displayName: JOB A
-    steps:
-      - script: exit 1
-  
-  - job: B
-    displayName: JOB B
-    dependsOn: A
-    condition: failed()
-    steps:
-      - script: echo "job a failed"
+steps:
 
-  - job: C
-    displayName: JOB C
-    condition: succeeded('B')
-    steps:
-      - script: echo "job b is passed"
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
 
-
+- task: PublishBuildArtifacts@1
+  inputs:
+    ArtifactName: target
+    pathtoPublish: '/target'
