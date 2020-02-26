@@ -34,25 +34,13 @@ stages:
   jobs:
   - job: Sonarscan
     steps:
-     - bash: |
-               pwd 
-
-               ls -a
-               cd target
-               ls -a 
-
      - task: DownloadBuildArtifacts@0
        inputs:
          buildType: 'current'
          downloadType: 'single'
          artifactName: 'target'
-         downloadPath: '$(System.ArtifactsDirectory)'
-      
-     - bash: |
-              ls -a
-
-              cd target
-              ls -a
+         downloadPath: '$(Build.SourcesDirectory)'
+    
      - task: SonarQubePrepare@4
        inputs:
          SonarQube: 'sonarqube'
@@ -60,6 +48,7 @@ stages:
          configMode: 'file'
 
      - task: SonarQubeAnalyze@4
+       displayName: SonarAnalyze
    
 
               
