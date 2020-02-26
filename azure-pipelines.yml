@@ -15,7 +15,7 @@ stages:
 - stage: SonarAnalysis
   jobs:
   - job: Sonarscan
-    container: skilldlabs/sonar-scanner:latest
+    container:  mercuriete/sonar-scanner
     steps:
      - task: DownloadBuildArtifacts@0
        inputs:
