@@ -15,7 +15,7 @@ stages:
 - stage: SonarAnalysis
   jobs:
   - job: Sonarscan
-    container:  mercuriete/sonar-scanner:latest
+    container:  maven:latest
     steps:
      - task: DownloadBuildArtifacts@0
        inputs:
