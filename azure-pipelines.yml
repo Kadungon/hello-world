@@ -10,25 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 stages:
-- stage: Build
-  jobs:
-  - job: BuildJob
-    steps:
-    - task: Maven@3
-      inputs:
-        mavenPomFile: 'pom.xml'
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        javaHomeOption: 'JDKVersion'
-        mavenVersionOption: 'Default'
-        mavenAuthenticateFeed: false
-        effectivePomSkip: false
-        sonarQubeRunAnalysis: false
-    - task: PublishBuildArtifacts@1
-      inputs:
-         PathtoPublish: 'target/'
-         ArtifactName: 'drop'
-         publishLocation: 'Container'
+
 
 - stage: SonarAnalysis
   jobs:
