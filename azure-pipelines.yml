@@ -33,13 +33,19 @@ stages:
 - stage: SonarAnalysis
   jobs:
   - job: Sonarscan
+    container: kiwicom/sonar-scanner:latest
     steps:
      - task: DownloadBuildArtifacts@0
        inputs:
          buildType: 'current'
          downloadType: 'single'
          artifactName: 'drop'
-         downloadPath: '$(System.ArtifactsDirectory)'
+         downloadPath: '$(System.ArtifactsDirectory)' 
+     - bash: |
+              
+ 
+    
+      
      
     
     
