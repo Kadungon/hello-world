@@ -33,7 +33,7 @@ stages:
 - stage: SonarAnalysis
   jobs:
   - job: Sonarscan
-    container: kiwicom/sonar-scanner:latest
+    container: skilldlabs/sonar-scanner
     steps:
      - task: DownloadBuildArtifacts@0
        inputs:
