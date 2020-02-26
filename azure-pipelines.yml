@@ -34,6 +34,13 @@ stages:
   jobs:
   - job: Sonarscan
     steps:
+     - bash: |
+               pwd 
+
+               ls -a
+               cd target
+               ls -a 
+
      - task: DownloadBuildArtifacts@0
        inputs:
          buildType: 'current'
