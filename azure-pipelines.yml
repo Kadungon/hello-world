@@ -30,11 +30,17 @@ stages:
          ArtifactName: 'drop'
          publishLocation: 'Container'
 
-- stage: Test
+- stage: SonarAnalysis
   jobs:
-  - job: TestOnWindows
+  - job: Sonarscan
     steps:
-     - script: echo test
+     - task: DownloadBuildArtifacts@0
+       inputs:
+         buildType: 'current'
+         downloadType: 'single'
+         artifactName: 'drop'
+         downloadPath: '$(System.ArtifactsDirectory)'
+     
     
     
 - stage: Deploy
