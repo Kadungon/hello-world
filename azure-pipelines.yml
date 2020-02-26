@@ -6,23 +6,37 @@
 trigger:
 - master
 
-variables:
-  password: test123
- 
+pool:
+  vmImage: 'ubuntu-latest'
+
 stages:
 - stage: Build
   jobs:
   - job: BuildJob
     steps:
-    - script: echo Building!
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
+    - task: PublishBuildArtifacts@1
+      inputs:
+         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+         ArtifactName: 'drop'
+         publishLocation: 'Container'
+
 - stage: Test
   jobs:
   - job: TestOnWindows
     steps:
-    - script: echo Testing on Windows!
-  - job: TestOnLinux
-    steps:
-    - script: echo Testing on Linux!
+     - script: echo test
+    
+    
 - stage: Deploy
   jobs:
   - job: Deploy
