@@ -23,9 +23,12 @@ stages:
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
         effectivePomSkip: false
-        sonarQubeRunAnalysis: false
-    
-
+        sonarQubeRunAnalysis: false 
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: 'target/'
+        ArtifactName: 'target'
+        publishLocation: 'Container'
 
 - stage: SonarAnalysis
   jobs:
