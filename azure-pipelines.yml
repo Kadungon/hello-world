@@ -38,7 +38,7 @@ stages:
        inputs:
          buildType: 'current'
          downloadType: 'single'
-         artifactName: 'drop'
+         artifactName: 'target'
          downloadPath: '$(System.ArtifactsDirectory)'
 
      - task: SonarQubePrepare@4
