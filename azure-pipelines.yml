@@ -47,7 +47,12 @@ stages:
          downloadType: 'single'
          artifactName: 'target'
          downloadPath: '$(System.ArtifactsDirectory)'
+      
+     - bash: |
+              ls -a
 
+              cd target
+              ls -a
      - task: SonarQubePrepare@4
        inputs:
          SonarQube: 'sonarqube'
